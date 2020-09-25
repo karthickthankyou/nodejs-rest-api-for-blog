@@ -9,6 +9,7 @@ const ErrorResponse = require("./middleware/ErrorResponse")
 
 const user = require("./routes/user")
 const posts = require("./routes/posts")
+const comments = require("./routes/comments")
 
 app.use(express.json())
 app.use(express.urlencoded())
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", user)
 app.use("/posts", posts)
+app.use("/comments", comments)
 
 app.use(ErrorResponse)
 
