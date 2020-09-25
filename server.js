@@ -8,6 +8,7 @@ connectDB()
 const ErrorResponse = require("./middleware/ErrorResponse")
 
 const user = require("./routes/user")
+const posts = require("./routes/posts")
 
 app.use(express.json())
 app.use(express.urlencoded())
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/user", user)
+app.use("/posts", posts)
 
 app.use(ErrorResponse)
 

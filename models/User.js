@@ -42,8 +42,8 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 }
 
 UserSchema.methods.getSignedJwt = function () {
-  return jwt.sign({ user: this }, "123454", {
-    expiresIn: "30d",
+  return jwt.sign({ user: this }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
   })
 }
 
