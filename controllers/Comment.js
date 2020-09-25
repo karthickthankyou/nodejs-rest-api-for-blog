@@ -70,3 +70,52 @@ exports.addComment = tryCatch(async (req, res, next) => {
     data: comment,
   })
 })
+
+exports.updateComment = tryCatch(async (req, res, next) => {
+  let comment = await Comment.findById(req.params.id)
+
+  if (!comment) {
+    return next({
+      message: "Comment not found",
+    })
+  }
+  if (comment.user.toString() !== req.user._id) {
+    return next({
+      message: "Not authorized to update the comment",
+    })
+  }
+
+  comment = await Comment.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  })
+
+  comment.save()
+
+  res.status(200).json({
+    success: true,
+    data: comment,
+  })
+})
+
+exports.deleteComment = tryCatch(async (req, res, next) => {
+  let comment = await Comment.findById(req.params.id)
+
+  if (!comment) {
+    return next({
+      message: "Comment not found",
+    })
+  }
+  if (comment.user.toString() !== req.user._id) {
+    return next({
+      message: "Not authorized to delete the comment",
+    })
+  }
+
+  await comment.remove()
+
+  res.status(200).json({
+    success: true,
+    data: {},
+  })
+})
