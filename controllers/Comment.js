@@ -29,6 +29,11 @@ exports.getComment = tryCatch(async (req, res, next) => {
   const comment = await Comment.findById(req.params.id)
     .populate({
       path: "post",
+      select: "postTitle duration",
+      populate: {
+        path: "user",
+        select: "name email",
+      },
     })
     .populate({
       path: "user",

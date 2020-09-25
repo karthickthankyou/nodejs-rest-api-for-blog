@@ -53,4 +53,10 @@ UserSchema.virtual("comments", {
   foreignField: "user",
 })
 
+UserSchema.virtual("post", {
+  ref: "Post",
+  localField: "_id",
+  foreignField: "post",
+})
+
 module.exports = mongoose.model("User", UserSchema)
