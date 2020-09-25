@@ -25,3 +25,43 @@ exports.getComments = tryCatch(async (req, res, next) => {
     data: comments,
   })
 })
+exports.getComment = tryCatch(async (req, res, next) => {
+  const comment = await Comment.findById(req.params.id)
+    .populate({
+      path: "post",
+    })
+    .populate({
+      path: "user",
+    })
+
+  if (!comment) {
+    return next({
+      message: "Comment not found",
+    })
+  }
+
+  res.status(200).json({
+    success: true,
+    data: comment,
+  })
+})
+
+exports.addComment = tryCatch(async (req, res, next) => {
+  const { postId } = req.body
+  const user = req.user._id
+
+  const post = await Post.findById(postId)
+
+  if (!post) {
+    return next({
+      message: "Post not found",
+    })
+  }
+
+  const comment = await Comment.create({ ...req.body, user, post: postId })
+
+  res.status(200).json({
+    success: true,
+    data: comment,
+  })
+})

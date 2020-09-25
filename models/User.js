@@ -47,4 +47,10 @@ UserSchema.methods.getSignedJwt = function () {
   })
 }
 
+UserSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "user",
+})
+
 module.exports = mongoose.model("User", UserSchema)
