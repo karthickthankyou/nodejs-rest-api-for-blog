@@ -1,6 +1,11 @@
 const User = require("../models/User")
 const { tryCatch } = require("../utils/tryCatch")
 
+exports.getUsers = tryCatch(async (req, res) => {
+  const users = await User.find()
+  res.status(200).json({ users })
+})
+
 exports.register = tryCatch(async (req, res) => {
   const { name, email, password, role } = req.body
 

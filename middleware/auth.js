@@ -25,3 +25,12 @@ exports.authenticate = tryCatch(async (req, res, next) => {
     })
   }
 })
+
+exports.authorize = (roles) => (req, res, next) => {
+  if (!roles.includes(req.user.role)) {
+    return next({
+      message: "Unauthorized to access this route",
+    })
+  }
+  next()
+}
