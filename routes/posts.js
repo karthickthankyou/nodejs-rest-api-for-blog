@@ -8,7 +8,7 @@ const {
   createPost,
   updatePost,
   deletePost,
-} = require("../controllers/Post")
+} = require("../controllers/posts")
 const { authenticate } = require("../middleware/auth")
 
 router.get("/", getPosts)

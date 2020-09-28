@@ -8,7 +8,7 @@ const {
   addComment,
   updateComment,
   deleteComment,
-} = require("../controllers/Comment")
+} = require("../controllers/comments")
 const { authenticate } = require("../middleware/auth")
 
 router.get("/", getComments)
