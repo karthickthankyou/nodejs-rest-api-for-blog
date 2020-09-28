@@ -4,7 +4,11 @@ const { tryCatch } = require("../utils/tryCatch")
 const APIFeatures = require("../utils/ApiFeature")
 
 exports.getPosts = tryCatch(async (req, res) => {
-  const advancedQuery = new APIFeatures(Post.find({}), req.query).sort()
+  const advancedQuery = new APIFeatures(Post.find({}), req.query)
+    .sort()
+    .paginate()
+    .fields()
+    .filter()
   const posts = await advancedQuery.query
   res.status(200).json({ posts })
 })
